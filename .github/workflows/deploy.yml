@@ -23,7 +23,7 @@ jobs:
         # La carpeta de tu proyecto local que quieres subir:
         local-dir: './' 
         # La carpeta de destino en tu hosting (¡revisa que sea la correcta!)
-        server-dir: '[/home/pascuali/prueba.pascualitofer.com]' 
+        server-dir: '/home/pascuali/prueba.pascualitofer.com' 
         # Subir solo los archivos cambiados para mayor velocidad:
         state-name: '.ftp-deploy-sync-state.json'
         # (Opcional) Borrar los archivos que ya no existen en tu repositorio:
