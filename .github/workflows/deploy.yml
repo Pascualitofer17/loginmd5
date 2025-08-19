@@ -1,49 +1,34 @@
-name: Despliegue con Optimización y Compilación
+# Nombre de la automatización que verás en GitHub
+name: Desplegar Sitio Web en Hosting
 
+# Define el evento que dispara esta automatización
 on:
+  # Se ejecutará cada vez que hagas 'push'
   push:
+    # Específicamente a la rama 'main'
     branches:
-      - main # El despliegue se activará con cada push a la rama principal
+      - main
 
+# Define los trabajos (tareas) que se van a ejecutar
 jobs:
   deploy:
-    name: Desplegar Proyecto Optimizado
+    # Usa una máquina virtual de Ubuntu para ejecutar los pasos
     runs-on: ubuntu-latest
-
     steps:
-    # Paso 1: Descargar el repositorio a la máquina de GitHub Actions
-    - name: Checkout del repositorio
-      uses: actions/checkout@v4
+      # Paso 1: Descarga el código de tu repositorio a la máquina virtual
+      - name: Checkout del código
+        uses: actions/checkout@v4
 
-    # Paso 2: Configurar el entorno de Node.js
-    - name: Configurar Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18' # Puedes cambiar la versión de Node.js si lo necesitas
-
-    # Paso 3: Instalar dependencias del proyecto
-    - name: Instalar dependencias
-      run: npm install
-
-    # Paso 4: Ejecutar un paso de optimización (ej. imágenes, assets)
-    # Asume que tienes un script 'optimize' definido en tu package.json
-    - name: Optimizar assets (ej. imagenes, CSS/JS)
-      run: npm run optimize # ¡Asegúrate de tener este script en tu package.json!
-
-    # Paso 5: Construir el proyecto final (crea la carpeta de salida como 'build' o 'dist')
-    - name: Construir proyecto
-      run: npm run build
-
-    # Paso 6: Desplegar el contenido de la carpeta 'build' a tu hosting
-    - name: Despliegue vía FTP
-      uses: SamKirkland/FTP-Deploy-Action@4.3.0
-      with:
-        server: ${{ secrets.FTP_HOST }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        # ¡IMPORTANTE! Subir solo la carpeta que se generó en la compilación
-        local-dir: './build/' # O './dist/' dependiendo de tu proyecto
-        server-dir: '/home/pascuali/prueba.pascualitofer.com/'
-        state-name: '.ftp-deploy-sync-state.json'
-        # Puedes añadir más opciones como `delete-remote-files: true`
-        # para borrar archivos que ya no existan en tu repositorio remoto.
+      # Paso 2: Usa una herramienta pre-hecha para subir los archivos por FTP
+      - name: Despliegue con FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          # Usa el Secreto que creaste para el servidor
+          server: ${{ secrets.FTP_SERVER }}
+          # Usa el Secreto que creaste para el usuario
+          username: ${{ secrets.FTP_USERNAME }}
+          # Usa el Secreto que creaste para la contraseña
+          password: ${{ secrets.FTP_PASSWORD }}
+          # El directorio en tu hosting donde se subirán los archivos.
+          # ¡¡¡IMPORTANTE!!! Revisa que '/public_html/' sea la carpeta correcta para ti.
+          server-dir: /
