@@ -20,4 +20,4 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }} # Usa el Secreto que creaste para la contraseña
           # ¡IMPORTANTE! La ruta completa y CORRECTA donde quieres que se suban los archivos.
           # Asegúrate de que la carpeta 'cifrado' exista en tu hosting.
-          server-dir: '/home/pascuali/prueba.pascualitofer.com/cifrado/'
+          server-dir: '/cifrado/'
