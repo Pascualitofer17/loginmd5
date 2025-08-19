@@ -1,34 +1,23 @@
-# Nombre de la automatización que verás en GitHub
-name: Desplegar Sitio Web en Hosting
+name: Desplegar Sitio Web en Hosting # Nombre de la automatización que verás en GitHub
 
-# Define el evento que dispara esta automatización
 on:
-  # Se ejecutará cada vez que hagas 'push'
   push:
-    # Específicamente a la rama 'main'
     branches:
-      - main
+      - main # Se ejecutará cada vez que hagas 'push' específicamente a la rama 'main'
 
-# Define los trabajos (tareas) que se van a ejecutar
 jobs:
   deploy:
-    # Usa una máquina virtual de Ubuntu para ejecutar los pasos
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # Usa una máquina virtual de Ubuntu para ejecutar los pasos
     steps:
-      # Paso 1: Descarga el código de tu repositorio a la máquina virtual
-      - name: Checkout del código
+      - name: Checkout del código # Paso 1: Descarga el código de tu repositorio a la máquina virtual
         uses: actions/checkout@v4
 
-      # Paso 2: Usa una herramienta pre-hecha para subir los archivos por FTP
-      - name: Despliegue con FTP
+      - name: Despliegue con FTP # Paso 2: Usa una herramienta pre-hecha para subir los archivos por FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          # Usa el Secreto que creaste para el servidor
-          server: ${{ secrets.FTP_SERVER }}
-          # Usa el Secreto que creaste para el usuario
-          username: ${{ secrets.FTP_USERNAME }}
-          # Usa el Secreto que creaste para la contraseña
-          password: ${{ secrets.FTP_PASSWORD }}
-          # El directorio en tu hosting donde se subirán los archivos.
-          # ¡¡¡IMPORTANTE!!! Revisa que '/public_html/' sea la carpeta correcta para ti.
-          server-dir: /
+          server: ${{ secrets.FTP_SERVER }} # Usa el Secreto que creaste para el servidor
+          username: ${{ secrets.FTP_USERNAME }} # Usa el Secreto que creaste para el usuario
+          password: ${{ secrets.FTP_PASSWORD }} # Usa el Secreto que creaste para la contraseña
+          # ¡IMPORTANTE! La ruta completa y CORRECTA donde quieres que se suban los archivos.
+          # Asegúrate de que la carpeta 'cifrado' exista en tu hosting.
+          server-dir: '/home/pascuali/prueba.pascualitofer.com/cifrado/'
