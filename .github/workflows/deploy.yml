@@ -31,4 +31,4 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           # El directorio en tu hosting donde se subirán los archivos.
           # ¡¡¡IMPORTANTE!!! Revisa que '/public_html/' sea la carpeta correcta para ti.
-          server-dir: /cifrado/
+          server-dir: /cifrado
