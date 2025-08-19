@@ -1,0 +1,11 @@
+# Proteger con contraseña
+AuthType Basic
+AuthName "Acceso Restringido"
+AuthUserFile /ruta/completa/a/.htpasswd
+Require valid-user
+
+# Deshabilitar la ejecución de PHP en esta carpeta
+# Esto es opcional, pero recomendado para carpetas de subida de archivos
+<FilesMatch "\.php$">
+    Require all denied
+</FilesMatch>
