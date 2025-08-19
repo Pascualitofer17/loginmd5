@@ -1,0 +1,30 @@
+name: Despliegue Automático
+
+on:
+  push:
+    branches:
+      - main # El despliegue se activará con cada push a la rama main
+
+jobs:
+  deploy:
+    name: Desplegar a Hosting
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout del repositorio
+      uses: actions/checkout@v4
+
+    - name: Despliegue vía FTP
+      uses: SamKirkland/FTP-Deploy-Action@4.3.0
+      with:
+        server: ${{ secrets.FTP_HOST }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        # La carpeta de tu proyecto local que quieres subir:
+        local-dir: './' 
+        # La carpeta de destino en tu hosting (¡revisa que sea la correcta!)
+        server-dir: '[/home/pascuali/prueba.pascualitofer.com]' 
+        # Subir solo los archivos cambiados para mayor velocidad:
+        state-name: '.ftp-deploy-sync-state.json'
+        # (Opcional) Borrar los archivos que ya no existen en tu repositorio:
+        # delete-remote-files: true
